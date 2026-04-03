@@ -1,0 +1,32 @@
+.conn-status {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.conn-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.conn-dot--pulse {
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.conn-dot--solid {
+  animation: none;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.7); }
+}
+
+.conn-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}

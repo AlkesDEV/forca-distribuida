@@ -1,0 +1,11 @@
+Gemfile.lock
+log/
+tmp/
+.bundle/
+vendor/bundle/
+.env
+.env.*
+!.env.example
+spec/
+test/
+*.md
