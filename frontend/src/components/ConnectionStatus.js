@@ -9,19 +9,37 @@ const STATUS_CONFIG = {
   failed:       { color: '#e74c3c', label: 'Desconectado',  dot: 'solid' },
 };
 
-export default function ConnectionStatus({ status, countdown }) {
+export default function ConnectionStatus({ status, countdown, latencyMs, connectionHealth }) {
   const cfg = STATUS_CONFIG[status] || STATUS_CONFIG.connecting;
+
+  const healthLabel = {
+    boa: 'Boa',
+    media: 'Média',
+    ruim: 'Ruim',
+    instavel: 'Conexão instável',
+  }[connectionHealth] || 'Conexão instável';
 
   return (
     <div className="conn-status">
-      <span
-        className={`conn-dot conn-dot--${cfg.dot}`}
-        style={{ background: cfg.color }}
-      />
-      <span className="conn-label" style={{ color: cfg.color }}>
-        {cfg.label}
-        {status === 'reconnecting' && countdown != null && ` (${countdown}s)`}
-      </span>
+      <div className="conn-status__main">
+        <span
+          className={`conn-dot conn-dot--${cfg.dot}`}
+          style={{ background: cfg.color }}
+        />
+        <span className="conn-label" style={{ color: cfg.color }}>
+          {cfg.label}
+          {status === 'reconnecting' && countdown != null && ` (${countdown}s)`}
+        </span>
+      </div>
+
+      <div className="conn-metrics">
+        <span className="conn-metric">
+          Latência: {latencyMs != null ? `${latencyMs} ms` : '...'}
+        </span>
+        <span className={`conn-metric conn-metric--${connectionHealth || 'instavel'}`}>
+          {healthLabel}
+        </span>
+      </div>
     </div>
   );
 }
